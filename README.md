@@ -27,10 +27,10 @@ This is very much alpha quality at the moment, don't use this process on any dev
 
 # Building 
 1. From the Arduino Folder replace boards.txt and the additional ld scripts into the appropriate place for your instance of Arduino.
-2. You must replace the url for the three downloads:
-	1. Espressif OTA Rom 1 (http://x.x.x.x/Espressif2Arduino.ino-0x01000.bin)
-	2. Espressif OTA Rom 2 (http://x.x.x.x/Espressif2Arduino.ino-0x81000.bin)
-	3. Rom 3 - Your new Arduino Build (http://x.x.x.x/sonoff.bin) 
+2. Update OTA URLs:
+	1. Espressif OTA Rom 1: Not needed
+	2. URL\_QIO\_ROM_2*: Espressif2Arduino OTA Rom 2 (http://x.x.x.x/Espressif2Arduino.ino-0x81000.bin)
+	3. URL\_QIO\_ROM_3*: Your new Arduino Build (http://x.x.x.x/sonoff.bin) 
 2. In Arduino IDE first select the Flash Size "1M (Espressif OTA Rom 1)" and build. 
 3. From your build directory run the following command and save the resulting output
  
@@ -44,6 +44,7 @@ You should now have three files ready for serving over HTTP:
 - Rom 2 (Espressif2Arduino.ino-0x81000.bin)
 - Arduino Build 
 
+*Note there are also DIO URLs for the ESP8285, these can be left blank if only flashing ESP8266 devices*
 
 # Flashing / Running
 Although it is intended you would flash these images OTA you can simulate the process by directly flashing Espressif2Arduino onto the currently active Espressif rom slot.
@@ -75,21 +76,21 @@ GPIO 13 is used by default as a status indicator
 
 If you connect the serial port you should also see output like this:
 	
-	Current Rom: 2
-	Rom 1 Magic Byte: 0xEA
-	Flash Mode: 1
-
-	Attempting to read itead Wifi credentials... Done
-        SSID: xxx
-        Password: xxx
-	Connecting to Wifi..................................Done
-        192.168.1.35
-	Flash Rom 1: http://192.168.1.xx/sonoff.bin
-	HTTP Response Code: 200
-	HTTP Response Length: 483152
-	Magic Byte from stream: 0xE9
-	**CRITICAL SECTION START - DO NOT TURN OFF POWER OR INTERFERE WITH WIFI**
-	Erasing Flash Sectors 0-128....................................Done
-	Downloading Image in 1024 byte blocks..........................Done
-	**CRITICAL SECTION END**
-
+	Current rom: 2
+	Rom 1 magic byte: 0xEA
+	Reflashing rom: 1
+	Attemping to read Sonoff Wifi credentials... Done
+		SSID: xxx
+		Password: xxx
+	Connecting to Wifi..................Done
+		192.168.1.19
+	Flash Mode: 3
+	Flashing rom 1 (retry:0): http://sunlocker.khc.net.nz/static/8266/sonoff-1024.bin
+	HTTP response Code: 200
+	HTTP response length: 483088
+	Magic byte from stream: 0xE9
+	Downloading 4096 byte bootloader..Done
+	Erasing flash sectors 1-128................................................Done
+	Downloading rom to 0x001000-0x075F10 in 1024 byte blocks...................Done
+	Erasing bootloader sector 0..Done
+	Writing bootloader to 0x000000-0x001000..Done
