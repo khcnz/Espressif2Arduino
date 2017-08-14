@@ -13,8 +13,8 @@ extern "C" void system_upgrade_reboot (void);
 #define BUFFER_SIZE 1024
 #define TIMEOUT 5000
 
-byte buffer[BUFFER_SIZE] = {0};
-byte bootrom[SECTOR_SIZE] = {0};
+byte buffer[BUFFER_SIZE] __attribute__((aligned(4))) = {0};
+byte bootrom[SECTOR_SIZE] __attribute__((aligned(4))) = {0};
 byte _blink = 0;
 
 enum FlashMode
@@ -30,11 +30,11 @@ enum FlashMode
 #define STATUS_GPIO 13  //gpio to toggle as status indicator
 #define RETRY 3         //number of times to retry
 
-#define URL_QIO_ROM_2 "http://sunlocker.khc.net.nz/static/8266/e2a-1024-2.bin"
-#define URL_QIO_ROM_3 "http://sunlocker.khc.net.nz/static/8266/sonoff-1024.bin"
+#define URL_QIO_ROM_2 "http://cputoasters.com/ameyer/sonoff/e2a-1024-2.bin"
+#define URL_QIO_ROM_3 "http://sonoff.maddox.co.uk/tasmota/sonoff-minimal.bin"
 
-#define URL_DIO_ROM_2 "http://sunlocker.khc.net.nz/static/8285/e2a-1024-2.bin"
-#define URL_DIO_ROM_3 "http://sunlocker.khc.net.nz/static/8285/sonoff-1024.bin"
+#define URL_DIO_ROM_2 "http://cputoasters.com/ameyer/sonoff/e2a-1024-2.bin"
+#define URL_DIO_ROM_3 "http://sonoff.maddox.co.uk/tasmota/sonoff-minimal.bin"
 
 //Uncomment to provide fixed credentials - otherwise will try to use credentials saved by sonoff device
 //#define WIFI_SSID "TEST"
